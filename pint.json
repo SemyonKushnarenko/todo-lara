@@ -1,0 +1,19 @@
+{
+    "preset": "psr12",
+    "rules": {
+        "declare_strict_types": true,
+        "php_unit_method_casing": {
+            "case": "camel_case"
+        },
+        "fully_qualified_strict_types": true,
+        "single_quote": true,
+        "trailing_comma_in_multiline": {
+            "elements": [
+                "arguments",
+                "arrays",
+                "match",
+                "parameters"
+            ]
+        }
+    }
+}
