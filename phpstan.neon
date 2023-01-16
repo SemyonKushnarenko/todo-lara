@@ -8,4 +8,4 @@ parameters:
         - database/
         - tests/
 
-    level: 9
+    level: 7

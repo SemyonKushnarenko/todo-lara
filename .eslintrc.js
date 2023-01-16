@@ -8,5 +8,5 @@ module.exports = {
         indent: ["error", 2],
         "prefer-template": "error",
         "comma-dangle": ["error", "always-multiline"],
-    }
+    },
 }

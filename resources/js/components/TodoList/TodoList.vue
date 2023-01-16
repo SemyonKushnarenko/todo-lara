@@ -2,7 +2,7 @@
   <li class="todo-list-wrapper">
     <div class="todo-list">
       <p class="todo-list__title">
-        Something interesting dsryfsdagdfgfdsgfdsgfdsgfdsgfdsgsdfgsdfghdafsdgdfsgfdsgfdsgfffffffffdddddfffffffffffffffffffafsadfth
+        {{ list.title }}
       </p>
       <div class="todo-list__actions">
         <div class="action">
@@ -54,6 +54,12 @@
 <script>
 export default {
   name: 'TodoList',
+  props: {
+    list: {
+      type: Object,
+      required: true,
+    },
+  },
 };
 </script>
 

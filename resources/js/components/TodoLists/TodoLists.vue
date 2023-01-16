@@ -8,23 +8,48 @@
         335
       </div>
     </div>
-    <ul class="todo-lists__list">
-      <TodoList />
-      <TodoList />
+    <ul
+      v-if="lists"
+      class="todo-lists__list"
+    >
+      <TodoList
+        v-for="list in lists"
+        :key="list.id"
+        :list="list"
+      />
     </ul>
   </section>
 </template>
 
 <script>
-import TodoList from '../TodoList/TodoList';
+import UserService from '../../services/UserService';
+import {defineAsyncComponent} from 'vue';
+
+const todoListService = new UserService();
 
 export default {
   name: 'TodoLists',
-  components: {TodoList},
+  components: {
+    TodoList: defineAsyncComponent(() =>
+      import('../TodoList/TodoList'),
+    ),
+  },
   data() {
     return {
       user: window.Laravel.user,
+      lists: null,
     };
+  },
+  mounted() {
+    this.getList(this.user.id);
+  },
+  methods: {
+    getList(userId) {
+      todoListService.getAllTodoListsByUser(userId)
+        .then(res => {
+          this.lists = res.data.data;
+        });
+    },
   },
 };
 </script>
