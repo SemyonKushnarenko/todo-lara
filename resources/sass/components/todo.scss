@@ -1,0 +1,19 @@
+.todo {
+    display: flex;
+    justify-content: space-between;
+}
+.todo__description {
+    width: 80%;
+}
+.todo__title {
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.todo__input {
+    padding: .7rem;
+    width: 80%;
+    border: 1px solid black;
+    outline: none;
+}

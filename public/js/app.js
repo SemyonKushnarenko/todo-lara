@@ -20649,16 +20649,14 @@ var _hoisted_2 = {
 var _hoisted_3 = {
   "class": "todo-lists__title text"
 };
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "todo-lists__count"
-}, " 335 ", -1 /* HOISTED */);
-var _hoisted_5 = {
+var _hoisted_4 = {
   key: 0,
   "class": "todo-lists__list"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _$data$lists;
   var _component_TodoList = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TodoList");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("section", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_3, " Hello, " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.user.name) + "! Here are your lists ", 1 /* TEXT */), _hoisted_4]), $data.lists ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_5, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.lists, function (list) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("section", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_3, " Hello, " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.user.name) + "! Here are your " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$data$lists = $data.lists) === null || _$data$lists === void 0 ? void 0 : _$data$lists.length) || 0) + " lists ", 1 /* TEXT */)]), $data.lists ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_4, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.lists, function (list) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_TodoList, {
       key: list.id,
       list: list
@@ -20920,7 +20918,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "*,\n*::before,\n*::after {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n.text {\n  font-size: 2rem;\n  font-weight: 500;\n}\n.container {\n  width: 1024px;\n  margin: 0 auto;\n}\n.container_main {\n  display: flex;\n  justify-content: center;\n}\n.list {\n  list-style: none;\n  display: flex;\n  gap: 10px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "*,\n*::before,\n*::after {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n.text {\n  font-size: 2rem;\n  font-weight: 500;\n}\n.container {\n  width: 1024px;\n  margin: 0 auto;\n}\n.container_main {\n  display: flex;\n  justify-content: center;\n}\n.list {\n  list-style: none;\n  display: flex;\n  gap: 10px;\n}\n.actions {\n  display: flex;\n  gap: 0.2rem;\n  justify-content: flex-end;\n}\n.action {\n  height: 1.5rem;\n  aspect-ratio: 1;\n  border: 1px solid black;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -21040,7 +21038,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".todo-lists {\n  padding: 0.5rem;\n  max-height: 80vh;\n  overflow: auto;\n  max-width: 1024px;\n}\n.todo-lists__header {\n  display: flex;\n  align-items: flex-start;\n}\n.todo-lists__title {\n  margin-bottom: 1rem;\n}\n.todo-lists__count {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin-left: 8px;\n  width: 2rem;\n  aspect-ratio: 1;\n  font-size: 0.9rem;\n  font-weight: 700;\n  color: white;\n  background-color: #000;\n  border-radius: 50%;\n  overflow: hidden;\n}\n.todo-lists__list {\n  list-style: none;\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n}\n.todo-list {\n  border: 1px solid gray;\n  padding: 1rem;\n}\n.todo-list__title {\n  font-weight: 700;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  margin-bottom: 1rem;\n}\n.todo {\n  display: flex;\n  justify-content: space-between;\n}\n.todo-list__actions,\n.todo__actions {\n  display: flex;\n  gap: 0.2rem;\n  justify-content: flex-end;\n}\n.action {\n  height: 1.5rem;\n  aspect-ratio: 1;\n  border: 1px solid black;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.todos {\n  list-style: none;\n  padding: 1rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  border: 1px solid black;\n}\n.todo__title {\n  font-weight: 700;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".todo-lists {\n  padding: 0.5rem;\n  max-height: 80vh;\n  overflow: auto;\n  max-width: 1024px;\n}\n.todo-lists__header {\n  display: flex;\n  align-items: flex-start;\n}\n.todo-lists__title {\n  margin-bottom: 1rem;\n}\n.todo-lists__list {\n  list-style: none;\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

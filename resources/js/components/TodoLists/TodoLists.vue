@@ -2,11 +2,8 @@
   <section class="todo-lists">
     <div class="todo-lists__header">
       <p class="todo-lists__title text">
-        Hello, {{ user.name }}! Here are your lists
+        Hello, {{ user.name }}! Here are your {{ lists?.length || 0 }} lists
       </p>
-      <div class="todo-lists__count">
-        335
-      </div>
     </div>
     <ul
       v-if="lists"
@@ -55,5 +52,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import 'resources/sass/components/list-of-todolists';
+@import 'resources/sass/components/todolists';
 </style>

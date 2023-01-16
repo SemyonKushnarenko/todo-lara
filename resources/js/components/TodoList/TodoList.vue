@@ -1,10 +1,15 @@
 <template>
   <li class="todo-list-wrapper">
     <div class="todo-list">
-      <p class="todo-list__title">
-        {{ list.title }}
-      </p>
-      <div class="todo-list__actions">
+      <div class="todo-list__description">
+        <p class="todo-list__title">
+          {{ list.title }}
+        </p>
+        <p class="todo-list__subtitle">
+          {{ list.description }}
+        </p>
+      </div>
+      <div class="actions">
         <div class="action">
           E
         </div>
@@ -17,43 +22,21 @@
       </div>
     </div>
     <ul class="todos">
-      <li class="todo">
-        <div class="todo__description">
-          <p class="todo__title">
-            User 1
-          </p>
-        </div>
-        <div class="todo__actions">
-          <div class="action">
-            E
-          </div>
-          <div class="action">
-            D
-          </div>
-        </div>
-      </li>
-      <li class="todo">
-        <div class="todo__description">
-          <p class="todo__title">
-            User 1
-          </p>
-        </div>
-        <div class="todo__actions">
-          <div class="action">
-            E
-          </div>
-          <div class="action">
-            D
-          </div>
-        </div>
-      </li>
+      <Todo
+          v-for="todo in list.todos"
+          :key="todo.id"
+          :todo="todo"
+      />
     </ul>
   </li>
 </template>
 
 <script>
+import Todo from "../Todo/Todo";
+
 export default {
   name: 'TodoList',
+  components: {Todo},
   props: {
     list: {
       type: Object,
@@ -63,6 +46,6 @@ export default {
 };
 </script>
 
-<style scoped>
-
+<style lang="scss">
+@import 'resources/sass/components/todolist';
 </style>

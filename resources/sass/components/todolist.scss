@@ -1,0 +1,22 @@
+.todo-list {
+    border: 1px solid gray;
+    padding: 1rem;
+}
+.todo-list__description {
+    width: 80%;
+}
+.todo-list__title {
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 1rem;
+}
+.todos{
+    list-style: none;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    border: 1px solid black;
+}

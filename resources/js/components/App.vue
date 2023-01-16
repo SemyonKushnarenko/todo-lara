@@ -36,4 +36,5 @@ export default {
 
 <style lang="scss">
 @import 'resources/sass/app';
+@import 'resources/sass/components/actions';
 </style>
