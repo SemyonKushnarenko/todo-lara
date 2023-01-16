@@ -15,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/main', [\App\Http\Controllers\HomeController::class, 'index']);
+    Route::get('/main', [\App\Http\Controllers\ApiController::class, 'index']);
 });
