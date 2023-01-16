@@ -1,10 +1,15 @@
 <template>
-Lists
+  <p class="text">Hello, {{user.name}}!</p>
 </template>
 
 <script>
 export default {
-  name: "TodoLists"
+  name: 'TodoLists',
+  data() {
+    return {
+      user: window.Laravel.user,
+    };
+  },
 }
 </script>
 
