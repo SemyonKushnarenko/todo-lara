@@ -1,40 +1,39 @@
 <template>
-  <div class="container">
-    <div class="header">
-      <router-link :to="{ name: this.routes.login }">Login</router-link>
-      <router-link :to="{ name: this.routes.registration }">Register</router-link>
-      <a
-          href="#"
-          @click.prevent="logout"
-      >Logout</a>
+  <Header :token="token" />
+  <main class="main">
+    <div class="container container_main">
+      <router-view></router-view>
     </div>
-    <router-view></router-view>
-  </div>
+  </main>
 </template>
 
 <script>
-import RouteNames from "../router/RouteNames";
-import axios from 'axios';
+import Header from "./Header/Header";
+
 export default {
   name: 'App',
+  components: {Header},
   data() {
     return {
-      routes: RouteNames
-    }
+      token: null,
+    };
+  },
+  mounted() {
+    this.getToken();
+  },
+  watch:{
+    $route() {
+      this.getToken();
+    },
   },
   methods: {
-    logout() {
-      axios.post('/logout').then(() => {
-        this.$router.push({
-          name: this.routes.login,
-        });
-      })
+    getToken() {
+      this.token = localStorage.getItem('x-xsrf-token');
     }
-  }
+  },
 };
 </script>
 
 <style lang="scss">
 @import 'resources/sass/app';
-@import 'resources/sass/partials/header';
 </style>

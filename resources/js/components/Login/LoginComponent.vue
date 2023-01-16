@@ -26,23 +26,32 @@
           required>
     </div>
     <button
-      type="button"
-      class="button"
-      @click="login"
-    >Login</button>
+        type="button"
+        class="button"
+        @click="login"
+    >Login
+    </button>
+    <p class="to_register">If you have no account, <router-link
+        :to="{name: routes.registration}"
+        class="link"
+    >register</router-link> first</p>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import RouteNames from "../../router/RouteNames";
 
 export default {
   name: 'LoginComponent',
   data() {
-     return {
-       email: null,
-       password: null,
-     }
+    return {
+      email: null,
+      password: null,
+      error: false,
+      errorMessage: null,
+      routes: RouteNames,
+    };
   },
   methods: {
     login() {
@@ -50,11 +59,19 @@ export default {
         axios.post('/login', {
           email: this.email,
           password: this.password,
-        }).then(() => {
-          this.$router.push({
-            name: 'main'
-          });
-        });
+        })
+            .then(res => {
+              localStorage.setItem('x-xsrf-token', res.config.headers['X-XSRF-TOKEN']);
+              this.$router.push({
+                name: RouteNames.lists
+              });
+            })
+            .catch(error => {
+              if (error.response.status === 422) {
+                this.error = true;
+                this.errorMessage = 'Please, input right email and password, or try to register';
+              }
+            });
       })
     }
   }

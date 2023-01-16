@@ -1,0 +1,18 @@
+@import 'resources/sass/variables';
+
+.not-found {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    width: 40%;
+    &__get-back {
+        border: none;
+        outline: none;
+        border-radius: 15px;
+        background-color: $pink;
+        cursor: pointer;
+        padding: 1rem 4rem;
+        font-size: 1rem;
+    }
+}

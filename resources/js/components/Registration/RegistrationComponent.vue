@@ -50,29 +50,39 @@
           name="password_confirmation"
           required>
     </div>
-    <p v-if="error" class="error">{{errorMessage}}</p>
+    <p v-if="error" class="error">{{ errorMessage }}</p>
     <button
-      type="button"
-      class="button"
-      @click="register"
-    >Register</button>
+        type="button"
+        class="button"
+        @click="register"
+    >Registration
+    </button>
+    <p class="to_login">Already have an account, you can
+      <router-link
+          :to="{name: routes.login}"
+          class="link"
+      >login
+      </router-link>
+    </p>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import RouteNames from "../../router/RouteNames";
 
 export default {
   name: 'RegistrationComponent',
   data() {
-     return {
-       name: null,
-       email: null,
-       password: null,
-       password_confirmation: null,
-       error: false,
-       errorMessage: '',
-     };
+    return {
+      name: null,
+      email: null,
+      password: null,
+      password_confirmation: null,
+      error: false,
+      errorMessage: '',
+      routes: RouteNames
+    };
   },
   methods: {
     register() {
@@ -87,14 +97,19 @@ export default {
           email: this.email,
           password: this.password,
           password_confirmation: this.password_confirmation,
-        }).then(() => {
-          this.$router.push({
-            name: 'main'
-          });
-        }).catch((err) => {
-          this.error = true;
-          this.errorMessage = 'Something went wrong. Please, try again later';
-        });
+        })
+            .then((response) => {
+              localStorage.setItem('x-xsrf-token', response.config.headers['X-XSRF-TOKEN']);
+              this.$router.push({
+                name: RouteNames.lists
+              });
+            })
+            .catch(error => {
+              if (error.response.status === 422) {
+                this.error = true;
+                this.errorMessage = 'Please, input all the fields right';
+              }
+            });
       })
     }
   }

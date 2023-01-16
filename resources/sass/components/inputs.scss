@@ -8,13 +8,16 @@
     padding: 1rem;
     background: #2d3748;
     font-size: 1.5rem;
+
     .input-container {
         display: flex;
         flex-direction: column;
         width: 100%;
+
         .label {
             color: white;
         }
+
         .input {
             border: 1px solid gray;
             outline: none;
@@ -22,8 +25,21 @@
             padding: .5rem;
         }
     }
+
     .button {
         height: 1.5rem;
-        width: 60%;
+        width: 40%;
+    }
+}
+
+.to_login,
+.to_register {
+    color: white;
+    font-size: 1rem;
+    .link {
+        color: lightblue;
+        &:active {
+            color: lightblue;
+        }
     }
 }
