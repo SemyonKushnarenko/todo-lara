@@ -1,7 +1,7 @@
 export default {
-    welcomePage: 'welcome',
-    login: 'login',
-    registration: 'registration',
-    lists: 'lists',
-    notFound: '404',
-}
+  welcomePage: 'welcome',
+  login: 'login',
+  registration: 'registration',
+  lists: 'lists',
+  notFound: '404',
+};

@@ -2,74 +2,90 @@
   <div class="inputs-container">
     <div class="input-container">
       <label
-          class="label"
-          for="name">Name:</label>
+        class="label"
+        for="name"
+      >Name:</label>
       <input
-          v-model="name"
-          id="name"
-          type="text"
-          class="input"
-          name="name"
-          required
-          autofocus>
+        id="name"
+        v-model="name"
+        type="text"
+        class="input"
+        name="name"
+        required
+        autofocus
+      >
     </div>
     <div class="input-container">
       <label
-          class="label"
-          for="email">Email:</label>
+        class="label"
+        for="email"
+      >Email:</label>
       <input
-          v-model="email"
-          id="email"
-          type="email"
-          class="input"
-          name="email"
-          required
-          autofocus>
+        id="email"
+        v-model="email"
+        type="email"
+        class="input"
+        name="email"
+        required
+        autofocus
+      >
     </div>
     <div class="input-container">
       <label
-          class="label"
-          for="password">Password:</label>
+        class="label"
+        for="password"
+      >Password:</label>
       <input
-          v-model="password"
-          id="password"
-          type="password"
-          class="input"
-          name="password"
-          required>
+        id="password"
+        v-model="password"
+        type="password"
+        class="input"
+        name="password"
+        required
+      >
     </div>
     <div class="input-container">
       <label
-          class="label"
-          for="password_confirmation">Repeat your password:</label>
+        class="label"
+        for="password_confirmation"
+      >Repeat your password:</label>
       <input
-          v-model="password_confirmation"
-          id="password_confirmation"
-          type="password"
-          class="input"
-          name="password_confirmation"
-          required>
+        id="password_confirmation"
+        v-model="password_confirmation"
+        type="password"
+        class="input"
+        name="password_confirmation"
+        required
+      >
     </div>
-    <p v-if="error" class="error">{{ errorMessage }}</p>
+    <p
+      v-if="error"
+      class="error"
+    >
+      {{ errorMessage }}
+    </p>
     <button
-        type="button"
-        class="button"
-        @click="register"
-    >Registration
+      type="button"
+      class="button"
+      @click="register"
+    >
+      Registration
     </button>
-    <p class="to_login">Already have an account, you can
+    <p class="to_login">
+      Already have an account, you can
       <router-link
-          :to="{name: routes.login}"
-          class="link"
-      >login
+        :to="{name: routes.login}"
+        class="link"
+      >
+        login
       </router-link>
     </p>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import RouteNames from "../../router/RouteNames";
+import axios from 'axios';
+import RouteNames from '../../router/RouteNames';
 
 export default {
   name: 'RegistrationComponent',
@@ -81,7 +97,7 @@ export default {
       password_confirmation: null,
       error: false,
       errorMessage: '',
-      routes: RouteNames
+      routes: RouteNames,
     };
   },
   methods: {
@@ -98,22 +114,22 @@ export default {
           password: this.password,
           password_confirmation: this.password_confirmation,
         })
-            .then((response) => {
-              localStorage.setItem('x-xsrf-token', response.config.headers['X-XSRF-TOKEN']);
-              this.$router.push({
-                name: RouteNames.lists
-              });
-            })
-            .catch(error => {
-              if (error.response.status === 422) {
-                this.error = true;
-                this.errorMessage = 'Please, input all the fields right';
-              }
+          .then((response) => {
+            localStorage.setItem('x-xsrf-token', response.config.headers['X-XSRF-TOKEN']);
+            this.$router.push({
+              name: RouteNames.lists,
             });
-      })
-    }
-  }
-}
+          })
+          .catch(error => {
+            if (error.response.status === 422) {
+              this.error = true;
+              this.errorMessage = 'Please, input all the fields right';
+            }
+          });
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss">

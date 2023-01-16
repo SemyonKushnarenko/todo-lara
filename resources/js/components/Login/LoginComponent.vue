@@ -2,45 +2,54 @@
   <div class="inputs-container">
     <div class="input-container">
       <label
-          class="label"
-          for="email">Email:</label>
+        class="label"
+        for="email"
+      >Email:</label>
       <input
-          v-model="email"
-          id="email"
-          type="email"
-          class="input"
-          name="email"
-          required
-          autofocus>
+        id="email"
+        v-model="email"
+        type="email"
+        class="input"
+        name="email"
+        required
+        autofocus
+      >
     </div>
     <div class="input-container">
       <label
-          class="label"
-          for="password">Password:</label>
+        class="label"
+        for="password"
+      >Password:</label>
       <input
-          v-model="password"
-          id="password"
-          type="password"
-          class="input"
-          name="password"
-          required>
+        id="password"
+        v-model="password"
+        type="password"
+        class="input"
+        name="password"
+        required
+      >
     </div>
     <button
-        type="button"
-        class="button"
-        @click="login"
-    >Login
+      type="button"
+      class="button"
+      @click="login"
+    >
+      Login
     </button>
-    <p class="to_register">If you have no account, <router-link
+    <p class="to_register">
+      If you have no account, <router-link
         :to="{name: routes.registration}"
         class="link"
-    >register</router-link> first</p>
+      >
+        register
+      </router-link> first
+    </p>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import RouteNames from "../../router/RouteNames";
+import axios from 'axios';
+import RouteNames from '../../router/RouteNames';
 
 export default {
   name: 'LoginComponent',
@@ -60,22 +69,22 @@ export default {
           email: this.email,
           password: this.password,
         })
-            .then(res => {
-              localStorage.setItem('x-xsrf-token', res.config.headers['X-XSRF-TOKEN']);
-              this.$router.push({
-                name: RouteNames.lists
-              });
-            })
-            .catch(error => {
-              if (error.response.status === 422) {
-                this.error = true;
-                this.errorMessage = 'Please, input right email and password, or try to register';
-              }
+          .then(res => {
+            localStorage.setItem('x-xsrf-token', res.config.headers['X-XSRF-TOKEN']);
+            this.$router.push({
+              name: RouteNames.lists,
             });
-      })
-    }
-  }
-}
+          })
+          .catch(error => {
+            if (error.response.status === 422) {
+              this.error = true;
+              this.errorMessage = 'Please, input right email and password, or try to register';
+            }
+          });
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss">

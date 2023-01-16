@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\Todo;
@@ -16,10 +18,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(UserSeeder::class);
-        if(!TodoList::exists()) {
+        if (!TodoList::exists()) {
             TodoList::factory(15)->create();
         }
-        if(!Todo::exists()) {
+        if (!Todo::exists()) {
             Todo::factory(30)->create();
         }
     }

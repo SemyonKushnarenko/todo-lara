@@ -5,20 +5,22 @@
         <ul class="list">
           <li v-if="!token">
             <router-link
-                class="header__link"
-                :to="{
-                  name: routes.welcomePage
-                }"
-            >Home
+              class="header__link"
+              :to="{
+                name: routes.welcomePage
+              }"
+            >
+              Home
             </router-link>
           </li>
           <li v-if="token">
             <router-link
-                class="header__link"
-                :to="{
-                  name: routes.lists
-                }"
-            >My lists
+              class="header__link"
+              :to="{
+                name: routes.lists
+              }"
+            >
+              My lists
             </router-link>
           </li>
         </ul>
@@ -27,21 +29,25 @@
         <ul class="list">
           <li v-if="token">
             <a
-                class="header__link"
-                href="#"
-                @click.prevent="logout"
+              class="header__link"
+              href="#"
+              @click.prevent="logout"
             >Logout</a>
           </li>
           <li v-if="!token">
             <router-link
-                class="header__link"
-                :to="{ name: routes.login }">Login
+              class="header__link"
+              :to="{ name: routes.login }"
+            >
+              Login
             </router-link>
           </li>
           <li v-if="!token">
             <router-link
-                class="header__link"
-                :to="{ name: routes.registration }">Registration
+              class="header__link"
+              :to="{ name: routes.registration }"
+            >
+              Registration
             </router-link>
           </li>
         </ul>
@@ -51,21 +57,21 @@
 </template>
 
 <script>
-import RouteNames from "../../router/RouteNames";
-import axios from "axios";
+import RouteNames from '../../router/RouteNames';
+import axios from 'axios';
 
 export default {
-  name: "Header",
-  data() {
-    return {
-      routes: RouteNames,
-    }
-  },
+  name: 'HeaderComponent',
   props: {
     token: {
       type: String,
       default: null,
-    }
+    },
+  },
+  data() {
+    return {
+      routes: RouteNames,
+    };
   },
   methods: {
     logout() {
@@ -74,10 +80,10 @@ export default {
         this.$router.push({
           name: this.routes.login,
         });
-      })
+      });
     },
   },
-}
+};
 </script>
 
 <style lang="scss">

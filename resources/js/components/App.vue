@@ -1,35 +1,35 @@
 <template>
-  <Header :token="token" />
+  <HeaderComponent :token="token" />
   <main class="main">
     <div class="container container_main">
-      <router-view></router-view>
+      <router-view />
     </div>
   </main>
 </template>
 
 <script>
-import Header from "./Header/Header";
+import HeaderComponent from './Header/HeaderComponent';
 
 export default {
   name: 'App',
-  components: {Header},
+  components: {HeaderComponent},
   data() {
     return {
       token: null,
     };
-  },
-  mounted() {
-    this.getToken();
   },
   watch:{
     $route() {
       this.getToken();
     },
   },
+  mounted() {
+    this.getToken();
+  },
   methods: {
     getToken() {
       this.token = localStorage.getItem('x-xsrf-token');
-    }
+    },
   },
 };
 </script>

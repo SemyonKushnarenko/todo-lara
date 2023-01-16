@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -40,7 +41,7 @@ class UserSeeder extends Seeder
                 'name' => 'Ilya',
                 'email' => 'ilya@gmail.com',
                 'password' => Hash::make('123123123'),
-            ]
+            ],
         ];
 
         foreach ($users as $user) {
