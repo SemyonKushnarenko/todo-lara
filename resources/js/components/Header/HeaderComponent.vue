@@ -17,7 +17,7 @@
             <router-link
               class="header__link"
               :to="{
-                name: routes.lists
+                name: routes.main
               }"
             >
               My lists

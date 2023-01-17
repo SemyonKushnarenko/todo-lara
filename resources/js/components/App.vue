@@ -9,6 +9,7 @@
 
 <script>
 import HeaderComponent from './Header/HeaderComponent';
+import RouteNames from "../router/RouteNames";
 
 export default {
   name: 'App',
@@ -25,6 +26,9 @@ export default {
   },
   mounted() {
     this.getToken();
+    if (!window.Laravel.user) {
+      this.$router.push({name: RouteNames.login})
+    }
   },
   methods: {
     getToken() {

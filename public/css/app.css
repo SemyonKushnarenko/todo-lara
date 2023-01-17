@@ -24,5 +24,32 @@
 .list {
   list-style: none;
   display: flex;
+  flex-direction: column;
   gap: 10px;
+}
+
+.link {
+  color: #2159cb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.done {
+  text-decoration: line-through;
+}
+
+.medium-text {
+  font-size: 1.2rem;
+}
+
+.input {
+  padding: 1rem;
+  font-size: 1rem;
+}
+
+.textarea {
+  padding: 1rem;
+  font-size: 1rem;
+  height: 4rem;
+  resize: none;
 }

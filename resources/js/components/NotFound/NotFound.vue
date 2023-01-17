@@ -5,7 +5,7 @@
     </p>
     <router-link
       class="not-found__link"
-      :to="{name: routes.lists}"
+      :to="{name: routes.main}"
     >
       <button
         class="not-found__get-back"

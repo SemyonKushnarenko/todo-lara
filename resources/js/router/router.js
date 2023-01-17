@@ -1,10 +1,11 @@
 import {createRouter, createWebHistory} from 'vue-router';
-import LoginComponent from '../components/Login/LoginComponent';
+import LoginComponent from '../Pages/Login/LoginComponent';
 import RouteNames from './RouteNames';
-import RegistrationComponent from '../components/Registration/RegistrationComponent';
-import TodoLists from '../components/TodoLists/TodoLists';
-import WelcomePage from '../components/WelcomePage/WelcomePage';
+import RegistrationComponent from '../Pages/Registration/RegistrationComponent';
+import MainPage from '../Pages/MainPage/MainPage';
+import WelcomePage from '../Pages/WelcomePage/WelcomePage';
 import NotFound from '../components/NotFound/NotFound';
+import TodoListPage from "../Pages/TodoListPage/TodoListPage";
 
 
 const router = createRouter({
@@ -26,9 +27,15 @@ const router = createRouter({
       component: WelcomePage,
     },
     {
-      name: RouteNames.lists,
-      path: '/lists',
-      component: TodoLists,
+      name: RouteNames.main,
+      path: '/main',
+      component: MainPage,
+    },
+    {
+      name: RouteNames.todoListPage,
+      path: '/todo-list/:todoListId(\\d+)',
+      component: TodoListPage,
+      props: true,
     },
     {
       name: RouteNames.notFound,
@@ -58,7 +65,7 @@ router.beforeEach((to, from, next) => {
   }
 
   if (token && isRouteAvailable) {
-    return next({name: RouteNames.lists});
+    return next({name: RouteNames.main});
   }
 
   return next();

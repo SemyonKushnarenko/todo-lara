@@ -2,7 +2,7 @@
   <section class="todo-lists">
     <div class="todo-lists__header">
       <p class="todo-lists__title text">
-        Hello, {{ user.name }}! Here are your {{ lists?.length || 0 }} lists
+        Hello, {{ user?.name }}! Here are your {{ lists?.length || 0 }} lists
       </p>
     </div>
     <ul
@@ -25,10 +25,10 @@ import {defineAsyncComponent} from 'vue';
 const todoListService = new UserService();
 
 export default {
-  name: 'TodoLists',
+  name: 'MainPage',
   components: {
     TodoList: defineAsyncComponent(() =>
-      import('../TodoList/TodoList'),
+      import('../../components/TodoList/TodoList'),
     ),
   },
   data() {
@@ -52,5 +52,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import 'resources/sass/components/todolists';
+@import '../../../sass/components/todolists';
 </style>

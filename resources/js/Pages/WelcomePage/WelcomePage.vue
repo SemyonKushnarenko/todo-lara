@@ -20,5 +20,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import 'resources/sass/components/welcome';
+@import '../../../sass/components/welcome';
 </style>

@@ -72,7 +72,7 @@ export default {
           .then(res => {
             localStorage.setItem('x-xsrf-token', res.config.headers['X-XSRF-TOKEN']);
             this.$router.push({
-              name: RouteNames.lists,
+              name: RouteNames.main,
             });
           })
           .catch(error => {
@@ -88,6 +88,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import 'resources/sass/components/inputs';
-@import 'resources/sass/components/errors';
+@import '../../../sass/components/inputs';
+@import '../../../sass/components/errors';
 </style>

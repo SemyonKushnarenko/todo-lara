@@ -9,34 +9,30 @@
           {{ list.description }}
         </p>
       </div>
-      <div class="actions">
-        <div class="action">
-          E
-        </div>
-        <div class="action">
-          D
-        </div>
-        <div class="action">
-          ia
-        </div>
-      </div>
+      <router-link :to="{
+        name: routes.todoListPage,
+        params: {
+          todoListId: list.id
+        },
+      }" class="link">
+        Go to
+      </router-link>
     </div>
-    <ul class="todos">
-      <Todo
-          v-for="todo in list.todos"
-          :key="todo.id"
-          :todo="todo"
-      />
-    </ul>
   </li>
 </template>
 
 <script>
 import Todo from "../Todo/Todo";
+import RouteNames from "../../router/RouteNames";
 
 export default {
   name: 'TodoList',
   components: {Todo},
+  data() {
+    return {
+      routes: RouteNames,
+    };
+  },
   props: {
     list: {
       type: Object,

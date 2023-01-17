@@ -39,6 +39,11 @@ class TodoList extends Model
 
     public $timestamps = false;
 
+    public $fillable = [
+        'title',
+        'description',
+    ];
+
     /**
      * @return BelongsTo<User, TodoList>
      */

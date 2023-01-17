@@ -35,6 +35,11 @@ class Todo extends Model
 
     public $timestamps = false;
 
+    public $fillable = [
+        'title',
+        'is_done',
+    ];
+
     /**
      * @return BelongsTo<TodoList, Todo>
      */

@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\ForbiddenException;
 use App\Exceptions\NotFoundException;
+use App\Http\Requests\TodoList\TodoListRequest;
+use App\Http\Requests\TodoList\UpdateTodoListRequest;
 use App\Http\Requests\UserRequest;
 use App\Services\TodoListService;
 use Exception;
@@ -27,6 +30,51 @@ class TodoListController extends ApiController
             return $this->clientErrorsResponse(
                 message: $error->getMessage(),
                 code: Response::HTTP_NOT_FOUND,
+            );
+        } catch (Exception) {
+            return $this->serverErrorResponse();
+        }
+    }
+
+    public function getTodoList(TodoListRequest $request): JsonResponse
+    {
+        $validatedParams = $request->validated();
+
+        try {
+            $todoList = $this->todoListService->getTodoList(
+                (int)$validatedParams['user_id'],
+                (int)$validatedParams['todo_list_id'],
+            );
+            return $this->successResponse($todoList);
+        } catch (NotFoundException $error) {
+            return $this->clientErrorsResponse(
+                message: $error->getMessage(),
+                code: Response::HTTP_NOT_FOUND,
+            );
+        } catch (ForbiddenException $error) {
+            return $this->clientErrorsResponse(
+                message: $error->getMessage(),
+                code: Response::HTTP_FORBIDDEN,
+            );
+        } catch (Exception) {
+            return $this->serverErrorResponse();
+        }
+    }
+
+    public function updateTodoList(UpdateTodoListRequest $request): JsonResponse
+    {
+        try {
+            $todoList = $this->todoListService->updateTodoList($request->validated());
+            return $this->successResponse($todoList);
+        } catch (NotFoundException $error) {
+            return $this->clientErrorsResponse(
+                message: $error->getMessage(),
+                code: Response::HTTP_NOT_FOUND,
+            );
+        } catch (ForbiddenException $error) {
+            return $this->clientErrorsResponse(
+                message: $error->getMessage(),
+                code: Response::HTTP_FORBIDDEN,
             );
         } catch (Exception) {
             return $this->serverErrorResponse();

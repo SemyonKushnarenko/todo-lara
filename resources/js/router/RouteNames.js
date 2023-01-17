@@ -2,6 +2,8 @@ export default {
   welcomePage: 'welcome',
   login: 'login',
   registration: 'registration',
-  lists: 'lists',
+  main: 'main',
+  list: 'list',
   notFound: '404',
+  todoListPage: 'todoList',
 };

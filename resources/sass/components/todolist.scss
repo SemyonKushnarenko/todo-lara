@@ -1,6 +1,13 @@
 .todo-list {
     border: 1px solid gray;
     padding: 1rem;
+    width: 60%;
+}
+.todo-list__header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
 }
 .todo-list__description {
     width: 80%;
