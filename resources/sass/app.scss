@@ -40,6 +40,11 @@
     text-decoration: line-through;
 }
 
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
 .medium-text {
     font-size: 1.2rem;
 }
@@ -52,6 +57,20 @@
 .textarea {
     padding: 1rem;
     font-size: 1rem;
-    height: 4rem;
+    height: 8rem;
     resize: none;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.dark-text {
+    color: $dark;
+}
+
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 3px;
 }

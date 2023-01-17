@@ -3,13 +3,10 @@
     max-height: 80vh;
     overflow: auto;
     max-width: 1024px;
-}
-.todo-lists__header {
     display: flex;
-    align-items: flex-start;
-}
-.todo-lists__title {
-    margin-bottom: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
 }
 .todo-lists__list {
     list-style: none;

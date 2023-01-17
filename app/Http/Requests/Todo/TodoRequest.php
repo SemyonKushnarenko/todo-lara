@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Todo;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -28,8 +28,7 @@ class TodoRequest extends FormRequest
         return [
             'user_id' => ['required', 'int'],
             'todo_id' => ['required', 'int'],
-            'title' => ['required', 'string'],
-            'is_done' => ['required', 'boolean'],
+            'todo_list_id' => ['required', 'int'],
         ];
     }
 
@@ -38,6 +37,7 @@ class TodoRequest extends FormRequest
         $this->merge([
             'user_id' => request()->user_id,
             'todo_id' => request()->todo_id,
+            'todo_list_id' => request()->todo_list_id,
         ]);
     }
 }

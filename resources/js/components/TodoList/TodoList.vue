@@ -22,12 +22,10 @@
 </template>
 
 <script>
-import Todo from "../Todo/Todo";
 import RouteNames from "../../router/RouteNames";
 
 export default {
   name: 'TodoList',
-  components: {Todo},
   data() {
     return {
       routes: RouteNames,

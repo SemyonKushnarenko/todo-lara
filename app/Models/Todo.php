@@ -38,6 +38,7 @@ class Todo extends Model
     public $fillable = [
         'title',
         'is_done',
+        'todo_list_id'
     ];
 
     /**

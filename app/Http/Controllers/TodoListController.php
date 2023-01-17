@@ -64,8 +64,8 @@ class TodoListController extends ApiController
     public function updateTodoList(UpdateTodoListRequest $request): JsonResponse
     {
         try {
-            $todoList = $this->todoListService->updateTodoList($request->validated());
-            return $this->successResponse($todoList);
+            $this->todoListService->updateTodoList($request->validated());
+            return $this->successResponse(code: Response::HTTP_NO_CONTENT);
         } catch (NotFoundException $error) {
             return $this->clientErrorsResponse(
                 message: $error->getMessage(),

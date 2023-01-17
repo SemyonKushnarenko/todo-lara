@@ -5,42 +5,51 @@
       v-if="todoList"
   >
       <div class="todo-list__header">
-        <input
-            v-if="editMode"
-            type="text"
-            v-model="todoList.title"
-            class="input"
-        />
-        <p v-else class="todo-list__description text">{{ todoList.title }}</p>
-        <textarea
-            v-if="editMode"
-            v-model="todoList.description"
-            class="textarea"
-        ></textarea>
-        <p v-else class="todo-list__title subtext">{{ todoList.description }}</p>
+        <div class="column" v-if="editMode">
+          <label
+              class="bold"
+              for="title">Title:</label>
+          <input
+              id="title"
+              type="text"
+              v-model="todoList.title"
+              class="input"
+          />
+        </div>
+        <p v-else class="todo-list__title text">{{ todoList.title }}</p>
+        <div class="column" v-if="editMode">
+          <label
+              class="bold"
+              for="description">Description:</label>
+          <textarea
+              id="description"
+              v-model="todoList.description"
+              class="textarea"
+          ></textarea>
+        </div>
+        <p v-else class="todo-list__description subtext">{{ todoList.description }}</p>
       </div>
-      <div
-          class="link medium-text"
+      <EditButton
           @click="editList"
-      >{{ editMode ? 'Save' : 'Edit' }}</div>
+          :edit-mode="editMode"
+      />
       <div class="todo-list__todos">
         <div class="todos__header text">Todos:</div>
         <ul class="todos__list list">
-          <li
-              v-for="todo in todoList.todos"
+          <Todo
+              v-for="(todo, todoId) in todoList.todos"
+              :todo="todo"
               :key="todo.id"
-              class="todo">
-            <p
-                class="todo__title"
-                :class="{done: todo.is_done}"
-            >{{ todo.title }}</p>
-            <input
-                type="checkbox"
-                :id="todo.id"
-                :checked="todo.is_done"
-                @click="() => toggleDone(todo)"
-            >
-          </li>
+              :todo-list-id="todoList.id"
+              @remove="removeTodo(todoId)"
+          />
+          <p v-if="!todos.length">There is no todo. Create your first</p>
+          <AddTodo
+              v-if="addMode"
+              @addTodo="addTodo"
+              :todo-list-id="todoList.id"
+          />
+          <AddButton v-else note="Add Todo" @click="addMode = true"/>
         </ul>
       </div>
   </section>
@@ -49,9 +58,12 @@
 <script>
 import TodoListService from '../../services/TodoListService';
 import TodoService from '../../services/TodoService';
-import {defineAsyncComponent} from 'vue';
 import BackButton from "../../components/Buttons/BackButton/BackButton";
 import RouteNames from "../../router/RouteNames";
+import Todo from "../../components/Todo/Todo";
+import EditButton from "../../components/Buttons/EditButton/EditButton";
+import AddButton from "../../components/Buttons/AddButton/AddButton";
+import AddTodo from "../../components/AddTodo/AddTodo";
 
 const todoListService = new TodoListService();
 const todoService = new TodoService();
@@ -59,10 +71,11 @@ const todoService = new TodoService();
 export default {
   name: 'TodoListPage',
   components: {
+    AddTodo,
+    AddButton,
+    EditButton,
+    Todo,
     BackButton,
-    TodoList: defineAsyncComponent(() =>
-      import('../../components/TodoList/TodoList'),
-    ),
   },
   props: {
     todoListId: {
@@ -75,6 +88,8 @@ export default {
       todoList: null,
       routes: RouteNames,
       editMode: false,
+      todos: null,
+      addMode: false,
     };
   },
   mounted() {
@@ -85,16 +100,8 @@ export default {
       todoListService.getTodoList(window.Laravel.user.id, this.todoListId)
         .then(res => {
           this.todoList = res.data.data;
+          this.todos = this.todoList.todos;
         });
-    },
-    updateTodo(todoId, newTodo) {
-      todoService.updateTodo(todoId, newTodo, window.Laravel.user.id)
-          .then(res => console.log(res))
-          .catch(error => console.log(error));
-    },
-    toggleDone(todo) {
-      todo.is_done = !todo.is_done;
-      this.updateTodo(todo.id, todo);
     },
     editList() {
       if (this.editMode) {
@@ -105,6 +112,13 @@ export default {
             .catch(error => console.log(error));
       }
       this.editMode = !this.editMode;
+    },
+    removeTodo(todoId) {
+      this.getList();
+    },
+    addTodo() {
+    this.addMode = false;
+      this.getList();
     },
   },
 };

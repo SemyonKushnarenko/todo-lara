@@ -13,8 +13,37 @@ use Exception;
 
 class TodoService
 {
-    public function __construct(private UserService $userService)
+    public function __construct(
+        private UserService $userService,
+    private TodoListService $todoListService
+    )
     {
+    }
+
+    /**
+     * @throws ForbiddenException
+     * @throws NotFoundException
+     * @throws Exception
+     * @return array<string>
+     */
+    public function createTodo(array $todoParams): array
+    {
+        $userId = (int)$todoParams['user_id'];
+        $todoListId = (int)$todoParams['todo_list_id'];
+        $this->todoListService->getTodoList(
+            $userId,
+            $todoListId,
+        );
+
+        $todo = Todo::create([
+            'todo_list_id' => $todoListId,
+            'title' => $todoParams['title'],
+            'is_done' => false,
+        ]);
+
+        $todoResource = new TodoResource($todo);
+
+        return $todoResource->resolve();
     }
 
     /**
@@ -25,21 +54,34 @@ class TodoService
      */
     public function updateTodo(array $todoParams): array
     {
-        $userId = (int)$todoParams['user_id'];
-        $this->userService->getUser($userId);
-        $todo = $this->findTodo(
-            (int)$todoParams['todo_id'],
-            $userId
+        $this->todoListService->getTodoList(
+            (int)$todoParams['user_id'],
+            (int)$todoParams['todo_list_id'],
         );
-
+        $todo = $this->findTodo((int)$todoParams['todo_id']);
         $todo->update([
             'title' => $todoParams['title'],
             'is_done' => $todoParams['is_done'],
         ]);
-
         $todoResource = new TodoResource($todo);
 
         return $todoResource->resolve();
+    }
+
+    /**
+     * @throws ForbiddenException
+     * @throws NotFoundException
+     * @throws Exception
+     */
+    public function deleteTodo(array $todoParams): void
+    {
+        $this->todoListService->getTodoList(
+            (int)$todoParams['user_id'],
+            (int)$todoParams['todo_list_id'],
+        );
+        $todo = $this->findTodo((int)$todoParams['todo_id']);
+
+        $todo->delete();
     }
 
     /**
@@ -47,7 +89,7 @@ class TodoService
      * @throws ForbiddenException
      * @throws Exception
      */
-    private function findTodo(int $todoId, int $userId): Todo
+    private function findTodo(int $todoId): Todo
     {
         $todo = Todo::find($todoId);
 
@@ -55,10 +97,6 @@ class TodoService
             throw new NotFoundException(
                 sprintf('Todo with id %d was not found.', $todoId),
             );
-        }
-
-        if ($todo->todoList->user_id !== $userId) {
-            throw new ForbiddenException('You have no permissions.');
         }
 
         return $todo;
