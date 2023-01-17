@@ -20159,6 +20159,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Buttons_EditButton_EditButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/Buttons/EditButton/EditButton */ "./resources/js/components/Buttons/EditButton/EditButton.vue");
 /* harmony import */ var _components_Buttons_AddButton_AddButton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/Buttons/AddButton/AddButton */ "./resources/js/components/Buttons/AddButton/AddButton.vue");
 /* harmony import */ var _components_AddTodo_AddTodo__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../components/AddTodo/AddTodo */ "./resources/js/components/AddTodo/AddTodo.vue");
+/* harmony import */ var _components_Buttons_DeleteButton_DeleteButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../components/Buttons/DeleteButton/DeleteButton */ "./resources/js/components/Buttons/DeleteButton/DeleteButton.vue");
+
 
 
 
@@ -20172,6 +20174,7 @@ var todoService = new _services_TodoService__WEBPACK_IMPORTED_MODULE_1__["defaul
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'TodoListPage',
   components: {
+    DeleteButton: _components_Buttons_DeleteButton_DeleteButton__WEBPACK_IMPORTED_MODULE_8__["default"],
     AddTodo: _components_AddTodo_AddTodo__WEBPACK_IMPORTED_MODULE_7__["default"],
     AddButton: _components_Buttons_AddButton_AddButton__WEBPACK_IMPORTED_MODULE_6__["default"],
     EditButton: _components_Buttons_EditButton_EditButton__WEBPACK_IMPORTED_MODULE_5__["default"],
@@ -20215,8 +20218,15 @@ var todoService = new _services_TodoService__WEBPACK_IMPORTED_MODULE_1__["defaul
       }
       this.editMode = !this.editMode;
     },
-    removeTodo: function removeTodo(todoId) {
-      this.getList();
+    removeList: function removeList() {
+      var _this3 = this;
+      todoListService.deleteTodoList(window.Laravel.user.id, this.todoListId).then(function () {
+        _this3.$router.push({
+          name: _router_RouteNames__WEBPACK_IMPORTED_MODULE_3__["default"].main
+        });
+      })["catch"](function (error) {
+        return console.log(error);
+      });
     },
     addTodo: function addTodo() {
       this.addMode = false;
@@ -20327,7 +20337,7 @@ __webpack_require__.r(__webpack_exports__);
       this.getToken();
     }
   },
-  mounted: function mounted() {
+  created: function created() {
     this.getToken();
     if (!window.Laravel.user) {
       this.$router.push({
@@ -20418,7 +20428,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'DeleteButton'
+  name: 'DeleteButton',
+  data: function data() {
+    return {
+      isPressed: false
+    };
+  }
 });
 
 /***/ }),
@@ -20889,20 +20904,24 @@ var _hoisted_8 = {
   "class": "todo-list__description subtext"
 };
 var _hoisted_9 = {
-  "class": "todo-list__todos"
+  "class": "actions"
 };
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_10 = {
+  "class": "todos"
+};
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "todos__header text"
 }, "Todos:", -1 /* HOISTED */);
-var _hoisted_11 = {
+var _hoisted_12 = {
   "class": "todos__list list"
 };
-var _hoisted_12 = {
+var _hoisted_13 = {
   key: 0
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_BackButton = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("BackButton");
   var _component_EditButton = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("EditButton");
+  var _component_DeleteButton = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DeleteButton");
   var _component_Todo = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Todo");
   var _component_AddTodo = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AddTodo");
   var _component_AddButton = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AddButton");
@@ -20921,19 +20940,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $data.todoList.description = $event;
     }),
     "class": "textarea"
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.todoList.description]])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.todoList.description), 1 /* TEXT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_EditButton, {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.todoList.description]])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.todoList.description), 1 /* TEXT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_EditButton, {
     onClick: $options.editList,
     "edit-mode": $data.editMode
-  }, null, 8 /* PROPS */, ["onClick", "edit-mode"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_11, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.todoList.todos, function (todo, todoId) {
+  }, null, 8 /* PROPS */, ["onClick", "edit-mode"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DeleteButton, {
+    onRemove: $options.removeList
+  }, null, 8 /* PROPS */, ["onRemove"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_12, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.todoList.todos, function (todo) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Todo, {
       todo: todo,
       key: todo.id,
       "todo-list-id": $data.todoList.id,
-      onRemove: function onRemove($event) {
-        return $options.removeTodo(todoId);
-      }
+      onRemove: $options.getList
     }, null, 8 /* PROPS */, ["todo", "todo-list-id", "onRemove"]);
-  }), 128 /* KEYED_FRAGMENT */)), !$data.todos.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_12, "There is no todo. Create your first")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.addMode ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AddTodo, {
+  }), 128 /* KEYED_FRAGMENT */)), !$data.todos.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_13, "There is no todo. Create your first")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.addMode ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AddTodo, {
     key: 1,
     onAddTodo: $options.addTodo,
     "todo-list-id": $data.todoList.id
@@ -21118,10 +21137,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "link dark-text medium-text"
+  key: 0,
+  "class": "actions"
 };
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Are you sure?", -1 /* HOISTED */);
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_1, "Delete");
+  return $data.isPressed ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "link dark-text medium-text",
+    onClick: _cache[0] || (_cache[0] = function ($event) {
+      return _ctx.$emit('remove');
+    })
+  }, "Yes"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "link dark-text medium-text",
+    onClick: _cache[1] || (_cache[1] = function ($event) {
+      return $data.isPressed = false;
+    })
+  }, "No")])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", {
+    key: 1,
+    "class": "link dark-text medium-text",
+    onClick: _cache[2] || (_cache[2] = function ($event) {
+      return $data.isPressed = true;
+    })
+  }, "Delete"));
 }
 
 /***/ }),
@@ -21367,8 +21405,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     "edit-mode": $data.editMode
   }, null, 8 /* PROPS */, ["edit-mode"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DeleteButton, {
-    onClick: $options.deleteTodo
-  }, null, 8 /* PROPS */, ["onClick"])])]);
+    onRemove: $options.deleteTodo
+  }, null, 8 /* PROPS */, ["onRemove"])])]);
 }
 
 /***/ }),
@@ -21599,6 +21637,28 @@ var TodoListService = /*#__PURE__*/function () {
         return _updateTodoList.apply(this, arguments);
       }
       return updateTodoList;
+    }()
+  }, {
+    key: "deleteTodoList",
+    value: function () {
+      var _deleteTodoList = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(userId, todoListId) {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat(this.url).concat(userId, "/todo-list/").concat(todoListId));
+            case 2:
+              return _context3.abrupt("return", _context3.sent);
+            case 3:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, this);
+      }));
+      function deleteTodoList(_x6, _x7) {
+        return _deleteTodoList.apply(this, arguments);
+      }
+      return deleteTodoList;
     }()
   }]);
   return TodoListService;
@@ -21867,7 +21927,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".todo-list {\n  border: 1px solid gray;\n  padding: 1rem;\n  width: 60%;\n}\n.todo-list__header {\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n  width: 100%;\n}\n.todo-list__description {\n  width: 80%;\n}\n.todo-list__title {\n  font-weight: 700;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.todos {\n  list-style: none;\n  padding: 1rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  border: 1px solid black;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".todo-list {\n  border: 1px solid gray;\n  padding: 1rem;\n  width: 70%;\n  margin: 0 auto;\n}\n.todo-list__header {\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n  width: 100%;\n}\n.todo-list__description {\n  margin-bottom: 1rem;\n}\n.todo-list__title {\n  font-weight: 700;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.todos {\n  margin-top: 2rem;\n}\n.todos__header {\n  margin-bottom: 1rem;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -21939,7 +21999,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "*,\n*::before,\n*::after {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n.text {\n  font-size: 2rem;\n  font-weight: 500;\n}\n.container {\n  width: 1024px;\n  margin: 0 auto;\n}\n.container_main {\n  display: flex;\n  justify-content: center;\n}\n.list {\n  list-style: none;\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n}\n.link {\n  color: #2159cb;\n  text-decoration: none;\n  cursor: pointer;\n}\n.done {\n  text-decoration: line-through;\n}\n.column {\n  display: flex;\n  flex-direction: column;\n}\n.medium-text {\n  font-size: 1.2rem;\n}\n.input {\n  padding: 1rem;\n  font-size: 1rem;\n}\n.textarea {\n  padding: 1rem;\n  font-size: 1rem;\n  height: 8rem;\n  resize: none;\n}\n.bold {\n  font-weight: 700;\n}\n.dark-text {\n  color: #000;\n}\n.checkbox-wrapper {\n  display: flex;\n  align-items: center;\n  gap: 3px;\n}\n.actions {\n  display: flex;\n  gap: 1rem;\n  justify-content: flex-end;\n  align-items: center;\n}\n.action {\n  height: 1.5rem;\n  aspect-ratio: 1;\n  border: 1px solid black;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "*,\n*::before,\n*::after {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n.text {\n  font-size: 2rem;\n  font-weight: 500;\n}\n.container {\n  width: 1024px;\n  margin: 0 auto;\n}\n.container_main {\n  display: flex;\n  justify-content: center;\n}\n.list {\n  list-style: none;\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n}\n.link {\n  color: #2159cb;\n  text-decoration: none;\n  cursor: pointer;\n}\n.done {\n  text-decoration: line-through;\n}\n.column {\n  display: flex;\n  flex-direction: column;\n}\n.medium-text {\n  font-size: 1.2rem;\n}\n.input {\n  padding: 1rem;\n  font-size: 1rem;\n}\n.textarea {\n  padding: 1rem;\n  font-size: 1rem;\n  height: 8rem;\n  resize: none;\n}\n.bold {\n  font-weight: 700;\n}\n.dark-text {\n  color: #000;\n}\n.checkbox-wrapper {\n  display: flex;\n  align-items: center;\n  gap: 3px;\n}\n.actions {\n  display: flex;\n  gap: 1rem;\n  align-items: center;\n}\n.action {\n  height: 1.5rem;\n  aspect-ratio: 1;\n  border: 1px solid black;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

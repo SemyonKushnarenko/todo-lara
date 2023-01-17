@@ -80,4 +80,24 @@ class TodoListController extends ApiController
             return $this->serverErrorResponse();
         }
     }
+
+    public function deleteTodoList(TodoListRequest $request): JsonResponse
+    {
+        try {
+            $this->todoListService->deleteTodoList($request->validated());
+            return $this->successResponse(code: Response::HTTP_NO_CONTENT);
+        } catch (NotFoundException $error) {
+            return $this->clientErrorsResponse(
+                message: $error->getMessage(),
+                code: Response::HTTP_NOT_FOUND,
+            );
+        } catch (ForbiddenException $error) {
+            return $this->clientErrorsResponse(
+                message: $error->getMessage(),
+                code: Response::HTTP_FORBIDDEN,
+            );
+        } catch (Exception) {
+            return $this->serverErrorResponse();
+        }
+    }
 }

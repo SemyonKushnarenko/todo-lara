@@ -13,4 +13,8 @@ export default class TodoListService {
             newTodoList
         );
     }
+
+    async deleteTodoList(userId, todoListId) {
+        return await axios.delete(`${this.url}${userId}/todo-list/${todoListId}`);
+    }
 }

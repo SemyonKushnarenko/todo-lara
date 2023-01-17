@@ -71,6 +71,23 @@ class TodoListService
     }
 
     /**
+     * @throws ForbiddenException
+     * @throws NotFoundException
+     * @throws Exception
+     */
+    public function deleteTodoList(array $todoListParams): void
+    {
+        $userId = (int)$todoListParams['user_id'];
+        $this->userService->getUser($userId);
+        $todoList = $this->findTodoList(
+            (int)$todoListParams['todo_list_id'],
+            $userId
+        );
+
+        $todoList->delete();
+    }
+
+    /**
      * @param int $userId
      * @return Collection<int, TodoList>
      * @throws NotFoundException

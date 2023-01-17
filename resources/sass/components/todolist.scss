@@ -1,7 +1,8 @@
 .todo-list {
     border: 1px solid gray;
     padding: 1rem;
-    width: 60%;
+    width: 70%;
+    margin: 0 auto;
 }
 .todo-list__header {
     display: flex;
@@ -10,7 +11,7 @@
     width: 100%;
 }
 .todo-list__description {
-    width: 80%;
+    margin-bottom: 1rem;
 }
 .todo-list__title {
     font-weight: 700;
@@ -19,10 +20,8 @@
     text-overflow: ellipsis;
 }
 .todos{
-    list-style: none;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-    border: 1px solid black;
+    margin-top: 2rem;
+}
+.todos__header {
+    margin-bottom: 1rem;
 }

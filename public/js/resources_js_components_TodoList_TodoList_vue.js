@@ -93,7 +93,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".todo-list {\n  border: 1px solid gray;\n  padding: 1rem;\n  width: 60%;\n}\n.todo-list__header {\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n  width: 100%;\n}\n.todo-list__description {\n  width: 80%;\n}\n.todo-list__title {\n  font-weight: 700;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.todos {\n  list-style: none;\n  padding: 1rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  border: 1px solid black;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".todo-list {\n  border: 1px solid gray;\n  padding: 1rem;\n  width: 70%;\n  margin: 0 auto;\n}\n.todo-list__header {\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n  width: 100%;\n}\n.todo-list__description {\n  margin-bottom: 1rem;\n}\n.todo-list__title {\n  font-weight: 700;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.todos {\n  margin-top: 2rem;\n}\n.todos__header {\n  margin-bottom: 1rem;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

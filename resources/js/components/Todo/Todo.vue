@@ -25,7 +25,7 @@
           @click="() => editTodo(newTodo)"
           :edit-mode="editMode"
       />
-      <DeleteButton @click="deleteTodo"/>
+      <DeleteButton @remove="deleteTodo"/>
     </div>
   </li>
 </template>

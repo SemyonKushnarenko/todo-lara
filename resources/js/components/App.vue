@@ -24,7 +24,7 @@ export default {
       this.getToken();
     },
   },
-  mounted() {
+  created() {
     this.getToken();
     if (!window.Laravel.user) {
       this.$router.push({name: RouteNames.login})

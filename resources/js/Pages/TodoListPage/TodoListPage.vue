@@ -29,19 +29,24 @@
         </div>
         <p v-else class="todo-list__description subtext">{{ todoList.description }}</p>
       </div>
+    <div class="actions">
       <EditButton
           @click="editList"
           :edit-mode="editMode"
       />
-      <div class="todo-list__todos">
+      <DeleteButton
+          @remove="removeList"
+      />
+    </div>
+      <div class="todos">
         <div class="todos__header text">Todos:</div>
         <ul class="todos__list list">
           <Todo
-              v-for="(todo, todoId) in todoList.todos"
+              v-for="todo in todoList.todos"
               :todo="todo"
               :key="todo.id"
               :todo-list-id="todoList.id"
-              @remove="removeTodo(todoId)"
+              @remove="getList"
           />
           <p v-if="!todos.length">There is no todo. Create your first</p>
           <AddTodo
@@ -64,6 +69,7 @@ import Todo from "../../components/Todo/Todo";
 import EditButton from "../../components/Buttons/EditButton/EditButton";
 import AddButton from "../../components/Buttons/AddButton/AddButton";
 import AddTodo from "../../components/AddTodo/AddTodo";
+import DeleteButton from "../../components/Buttons/DeleteButton/DeleteButton";
 
 const todoListService = new TodoListService();
 const todoService = new TodoService();
@@ -71,6 +77,7 @@ const todoService = new TodoService();
 export default {
   name: 'TodoListPage',
   components: {
+    DeleteButton,
     AddTodo,
     AddButton,
     EditButton,
@@ -113,11 +120,15 @@ export default {
       }
       this.editMode = !this.editMode;
     },
-    removeTodo(todoId) {
-      this.getList();
+    removeList() {
+      todoListService.deleteTodoList(window.Laravel.user.id, this.todoListId)
+          .then(() => {
+            this.$router.push({name: RouteNames.main});
+          })
+          .catch(error => console.log(error));
     },
     addTodo() {
-    this.addMode = false;
+      this.addMode = false;
       this.getList();
     },
   },
