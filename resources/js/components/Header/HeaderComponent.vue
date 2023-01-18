@@ -26,7 +26,7 @@
         </ul>
       </nav>
       <nav class="header__right-nav">
-        <ul class="list">
+        <ul class="list row">
           <li v-if="token">
             <a
               class="header__link"

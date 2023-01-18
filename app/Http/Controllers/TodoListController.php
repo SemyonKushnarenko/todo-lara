@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\ForbiddenException;
 use App\Exceptions\NotFoundException;
+use App\Http\Requests\TodoList\CreateTodoListRequest;
 use App\Http\Requests\TodoList\TodoListRequest;
 use App\Http\Requests\TodoList\UpdateTodoListRequest;
 use App\Http\Requests\UserRequest;
@@ -18,6 +19,29 @@ class TodoListController extends ApiController
 {
     public function __construct(private TodoListService $todoListService)
     {
+    }
+
+    public function createTodoList(CreateTodoListRequest $request): JsonResponse
+    {
+        try {
+            $todoListResource = $this->todoListService->createTodoList($request->validated());
+            return $this->successResponse(
+                data: $todoListResource,
+                code: Response::HTTP_CREATED
+            );
+        } catch (NotFoundException $error) {
+            return $this->clientErrorsResponse(
+                message: $error->getMessage(),
+                code: Response::HTTP_NOT_FOUND,
+            );
+        } catch (ForbiddenException $error) {
+            return $this->clientErrorsResponse(
+                message: $error->getMessage(),
+                code: Response::HTTP_FORBIDDEN,
+            );
+        } catch (Exception) {
+            return $this->serverErrorResponse();
+        }
     }
 
     public function getAllByUser(UserRequest $request): JsonResponse

@@ -42,6 +42,7 @@ class TodoList extends Model
     public $fillable = [
         'title',
         'description',
+        'user_id',
     ];
 
     /**

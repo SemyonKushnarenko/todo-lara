@@ -1,5 +1,7 @@
 <template>
-<div class="add">+ {{note}}</div>
+  <div
+      :class="classNames"
+  >+ {{ note }}</div>
 </template>
 
 <script>
@@ -9,11 +11,11 @@ export default {
     note: {
       type: String,
       required: true,
-    }
+    },
+    classNames: {
+      type: String,
+      default: '',
+    },
   }
 }
 </script>
-
-<style lang="scss">
-@import "resources/sass/components/add_button.scss";
-</style>

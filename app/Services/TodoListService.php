@@ -7,7 +7,6 @@ namespace App\Services;
 use App\Exceptions\ForbiddenException;
 use App\Exceptions\NotFoundException;
 use App\Http\Resources\TodoListResource;
-use App\Http\Resources\TodoResource;
 use App\Models\TodoList;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,6 +15,28 @@ class TodoListService
 {
     public function __construct(private UserService $userService)
     {
+    }
+
+    /**
+     * @throws ForbiddenException
+     * @throws NotFoundException
+     * @throws Exception
+     * @return array<string>
+     */
+    public function createTodoList(array $todoListParams): array
+    {
+        $userId = (int)$todoListParams['user_id'];
+        $this->userService->getUser($userId);
+
+        $todoList = TodoList::create([
+            'title' => $todoListParams['title'],
+            'description' => $todoListParams['description'],
+            'user_id' => $userId,
+        ]);
+
+        $todoListResource = new TodoListResource($todoList);
+
+        return $todoListResource->resolve();
     }
 
     /**
@@ -88,7 +109,6 @@ class TodoListService
     }
 
     /**
-     * @param int $userId
      * @return Collection<int, TodoList>
      * @throws NotFoundException
      */

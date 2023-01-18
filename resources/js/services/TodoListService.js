@@ -7,6 +7,10 @@ export default class TodoListService {
         return await axios.get(`${this.url}${userId}/todo-list/${todoListId}`);
     }
 
+    async addTodoList(data, userId) {
+        return await axios.post(`${this.url}${userId}/todo-list`, data);
+    }
+
     async updateTodoList(userId, todoListId, newTodoList) {
         return await axios.patch(
             `${this.url}${userId}/todo-list/${todoListId}`,

@@ -5,7 +5,11 @@
         v-model="title"
         class="input add-todo__input"
     />
-    <AddButton note="ADD" @click="createTodo"/>
+    <AddButton
+        note="ADD"
+        @click="createTodo"
+        class-names="link"
+    />
   </div>
 </template>
 

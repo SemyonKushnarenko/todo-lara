@@ -27,6 +27,9 @@
     list-style: none;
     display: flex;
     flex-direction: column;
+    &.row {
+        flex-direction: row;
+    }
     gap: 10px;
 }
 

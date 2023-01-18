@@ -69,8 +69,8 @@ export default {
           email: this.email,
           password: this.password,
         })
-          .then(res => {
-            localStorage.setItem('x-xsrf-token', res.config.headers['X-XSRF-TOKEN']);
+          .then(response => {
+            localStorage.setItem('x-xsrf-token', response.config.headers['X-XSRF-TOKEN']);
             this.$router.push({
               name: RouteNames.main,
             });

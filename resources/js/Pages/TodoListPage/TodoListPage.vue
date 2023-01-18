@@ -51,10 +51,15 @@
           <p v-if="!todos.length">There is no todo. Create your first</p>
           <AddTodo
               v-if="addMode"
-              @addTodo="addTodo"
+              @todoAdded="todoAdded"
               :todo-list-id="todoList.id"
           />
-          <AddButton v-else note="Add Todo" @click="addMode = true"/>
+          <AddButton
+              v-else
+              note="Add Todo"
+              class-names="link"
+              @click="addMode = true"
+          />
         </ul>
       </div>
   </section>
@@ -127,7 +132,7 @@ export default {
           })
           .catch(error => console.log(error));
     },
-    addTodo() {
+    todoAdded() {
       this.addMode = false;
       this.getList();
     },
