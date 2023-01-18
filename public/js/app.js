@@ -20206,7 +20206,8 @@ var todoService = new _services_TodoService__WEBPACK_IMPORTED_MODULE_1__["defaul
       routes: _router_RouteNames__WEBPACK_IMPORTED_MODULE_3__["default"],
       editMode: false,
       todos: null,
-      addMode: false
+      addMode: false,
+      isExported: false
     };
   },
   mounted: function mounted() {
@@ -20244,6 +20245,22 @@ var todoService = new _services_TodoService__WEBPACK_IMPORTED_MODULE_1__["defaul
     todoAdded: function todoAdded() {
       this.addMode = false;
       this.getList();
+    },
+    exportList: function exportList() {
+      var _this4 = this;
+      if (!this.isExported) {
+        todoListService.exportTodoList(window.Laravel.user.id, this.todoListId).then(function (response) {
+          _this4.isExported = true;
+          var url = window.URL.createObjectURL(new Blob([response.data]));
+          var link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', "".concat(window.Laravel.user.name, ",").concat(_this4.todoList.title, ".pdf"));
+          document.body.appendChild(link);
+          link.click();
+        })["catch"](function (error) {
+          return console.log(error);
+        });
+      }
     }
   }
 });
@@ -20310,7 +20327,7 @@ var todoService = new _services_TodoService__WEBPACK_IMPORTED_MODULE_1__["defaul
     createTodo: function createTodo() {
       var _this = this;
       todoService.addTodo(this.todoListId, this.title, window.Laravel.user.id).then(function () {
-        return _this.$emit('addTodo');
+        return _this.$emit('todoAdded');
       })["catch"](function (error) {
         return console.log(error);
       });
@@ -21021,7 +21038,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "edit-mode": $data.editMode
   }, null, 8 /* PROPS */, ["onClick", "edit-mode"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DeleteButton, {
     onRemove: $options.removeList
-  }, null, 8 /* PROPS */, ["onRemove"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_12, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.todoList.todos, function (todo) {
+  }, null, 8 /* PROPS */, ["onRemove"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+    onClick: _cache[2] || (_cache[2] = function () {
+      return $options.exportList && $options.exportList.apply($options, arguments);
+    }),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
+      link: !$data.isExported
+    })
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.isExported ? 'exported as a job' : 'export'), 3 /* TEXT, CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_12, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.todoList.todos, function (todo) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Todo, {
       todo: todo,
       key: todo.id,
@@ -21036,7 +21060,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     key: 2,
     note: "Add Todo",
     "class-names": "link",
-    onClick: _cache[2] || (_cache[2] = function ($event) {
+    onClick: _cache[3] || (_cache[3] = function ($event) {
       return $data.addMode = true;
     })
   }))])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
@@ -21749,14 +21773,16 @@ var TodoListService = /*#__PURE__*/function () {
       return getTodoList;
     }()
   }, {
-    key: "addTodoList",
+    key: "exportTodoList",
     value: function () {
-      var _addTodoList = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(data, userId) {
+      var _exportTodoList = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(userId, todoListId) {
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat(this.url).concat(userId, "/todo-list"), data);
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat(this.url).concat(userId, "/todo-list/").concat(todoListId, "/export"), {
+                responseType: 'blob'
+              });
             case 2:
               return _context2.abrupt("return", _context2.sent);
             case 3:
@@ -21765,20 +21791,20 @@ var TodoListService = /*#__PURE__*/function () {
           }
         }, _callee2, this);
       }));
-      function addTodoList(_x3, _x4) {
-        return _addTodoList.apply(this, arguments);
+      function exportTodoList(_x3, _x4) {
+        return _exportTodoList.apply(this, arguments);
       }
-      return addTodoList;
+      return exportTodoList;
     }()
   }, {
-    key: "updateTodoList",
+    key: "addTodoList",
     value: function () {
-      var _updateTodoList = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(userId, todoListId, newTodoList) {
+      var _addTodoList = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(data, userId) {
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
               _context3.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().patch("".concat(this.url).concat(userId, "/todo-list/").concat(todoListId), newTodoList);
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat(this.url).concat(userId, "/todo-list"), data);
             case 2:
               return _context3.abrupt("return", _context3.sent);
             case 3:
@@ -21787,20 +21813,20 @@ var TodoListService = /*#__PURE__*/function () {
           }
         }, _callee3, this);
       }));
-      function updateTodoList(_x5, _x6, _x7) {
-        return _updateTodoList.apply(this, arguments);
+      function addTodoList(_x5, _x6) {
+        return _addTodoList.apply(this, arguments);
       }
-      return updateTodoList;
+      return addTodoList;
     }()
   }, {
-    key: "deleteTodoList",
+    key: "updateTodoList",
     value: function () {
-      var _deleteTodoList = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(userId, todoListId) {
+      var _updateTodoList = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(userId, todoListId, newTodoList) {
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
               _context4.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat(this.url).concat(userId, "/todo-list/").concat(todoListId));
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().patch("".concat(this.url).concat(userId, "/todo-list/").concat(todoListId), newTodoList);
             case 2:
               return _context4.abrupt("return", _context4.sent);
             case 3:
@@ -21809,7 +21835,29 @@ var TodoListService = /*#__PURE__*/function () {
           }
         }, _callee4, this);
       }));
-      function deleteTodoList(_x8, _x9) {
+      function updateTodoList(_x7, _x8, _x9) {
+        return _updateTodoList.apply(this, arguments);
+      }
+      return updateTodoList;
+    }()
+  }, {
+    key: "deleteTodoList",
+    value: function () {
+      var _deleteTodoList = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(userId, todoListId) {
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat(this.url).concat(userId, "/todo-list/").concat(todoListId));
+            case 2:
+              return _context5.abrupt("return", _context5.sent);
+            case 3:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5, this);
+      }));
+      function deleteTodoList(_x10, _x11) {
         return _deleteTodoList.apply(this, arguments);
       }
       return deleteTodoList;

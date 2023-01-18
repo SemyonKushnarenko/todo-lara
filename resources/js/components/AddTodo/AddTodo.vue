@@ -36,7 +36,7 @@ export default {
   methods: {
     createTodo() {
       todoService.addTodo(this.todoListId, this.title, window.Laravel.user.id)
-          .then(() => this.$emit('addTodo'))
+          .then(() => this.$emit('todoAdded'))
           .catch(error => console.log(error));
     },
   },

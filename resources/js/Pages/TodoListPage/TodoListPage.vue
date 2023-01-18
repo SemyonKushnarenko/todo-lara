@@ -37,6 +37,10 @@
       <DeleteButton
           @remove="removeList"
       />
+      <p
+          @click="exportList"
+          :class="{link: !isExported}"
+      >{{isExported ? 'exported as a job' : 'export'}}</p>
     </div>
       <div class="todos">
         <div class="todos__header text">Todos:</div>
@@ -102,6 +106,7 @@ export default {
       editMode: false,
       todos: null,
       addMode: false,
+      isExported: false,
     };
   },
   mounted() {
@@ -136,6 +141,23 @@ export default {
       this.addMode = false;
       this.getList();
     },
+    exportList() {
+      if (!this.isExported){
+        todoListService.exportTodoList(window.Laravel.user.id, this.todoListId)
+            .then((response) => {
+              this.isExported = true;
+              const url = window.URL.createObjectURL(new Blob([response.data]));
+              const link = document.createElement('a');
+              link.href = url;
+              link.setAttribute('download',
+                  `${window.Laravel.user.name},${this.todoList.title}.pdf`
+              );
+              document.body.appendChild(link);
+              link.click();
+      })
+            .catch(error => console.log(error));
+      }
+    }
   },
 };
 </script>

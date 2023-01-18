@@ -10,7 +10,9 @@ use App\Http\Requests\TodoList\CreateTodoListRequest;
 use App\Http\Requests\TodoList\TodoListRequest;
 use App\Http\Requests\TodoList\UpdateTodoListRequest;
 use App\Http\Requests\UserRequest;
+use App\Jobs\PdfDownload;
 use App\Services\TodoListService;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -70,6 +72,32 @@ class TodoListController extends ApiController
                 (int)$validatedParams['todo_list_id'],
             );
             return $this->successResponse($todoList);
+        } catch (NotFoundException $error) {
+            return $this->clientErrorsResponse(
+                message: $error->getMessage(),
+                code: Response::HTTP_NOT_FOUND,
+            );
+        } catch (ForbiddenException $error) {
+            return $this->clientErrorsResponse(
+                message: $error->getMessage(),
+                code: Response::HTTP_FORBIDDEN,
+            );
+        } catch (Exception) {
+            return $this->serverErrorResponse();
+        }
+    }
+
+    public function exportTodoList(TodoListRequest $request): Response
+    {
+        $validatedParams = $request->validated();
+
+        try {
+            $data = $this->todoListService->getTodoList(
+                (int)$validatedParams['user_id'],
+                (int)$validatedParams['todo_list_id'],
+            );
+            $pdf = PDF::loadView('todoListPDF', $data);
+            return $pdf->download();
         } catch (NotFoundException $error) {
             return $this->clientErrorsResponse(
                 message: $error->getMessage(),

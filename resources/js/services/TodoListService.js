@@ -7,6 +7,12 @@ export default class TodoListService {
         return await axios.get(`${this.url}${userId}/todo-list/${todoListId}`);
     }
 
+    async exportTodoList(userId, todoListId) {
+        return await axios.get(`${this.url}${userId}/todo-list/${todoListId}/export`, {
+            responseType: 'blob',
+        });
+    }
+
     async addTodoList(data, userId) {
         return await axios.post(`${this.url}${userId}/todo-list`, data);
     }

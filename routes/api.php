@@ -10,6 +10,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user/{user_id}/todo-lists', [TodoListController::class, 'getAllByUser']);
 
     Route::get('/user/{user_id}/todo-list/{todo_list_id}', [TodoListController::class, 'getTodoList']);
+    Route::get('/user/{user_id}/todo-list/{todo_list_id}/export', [TodoListController::class, 'exportTodoList']);
     Route::post('/user/{user_id}/todo-list/', [TodoListController::class, 'createTodoList']);
     Route::patch('/user/{user_id}/todo-list/{todo_list_id}', [TodoListController::class, 'updateTodoList']);
     Route::delete('/user/{user_id}/todo-list/{todo_list_id}', [TodoListController::class, 'deleteTodoList']);
